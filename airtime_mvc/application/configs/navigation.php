@@ -14,22 +14,6 @@
  */
 $pages = array();
 $pages[] = array(
-    'label'      => _('My Podcast'),
-    'module'     => 'default',
-    'controller' => 'podcast',
-    'action'     => 'station',
-    'resource'   => 'podcast',
-    'class'      => '<i class="icon-music icon-white"></i>'
-);
-$pages[] = array(
-    'label'      => _('Radio Page'),
-    'uri'        => '/',
-    'resource'   => '',
-    'class'      => '<i class="icon-globe icon-white"></i>',
-    'pages'      => array(),
-    'visible'    => false
-);
-$pages[] = array(
     'label'      => _('Calendar'),
     'module'     => 'default',
     'controller' => 'schedule',
