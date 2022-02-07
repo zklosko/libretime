@@ -63,8 +63,8 @@ sudo locale-gen --purge en_US.UTF-8
 sudo update-locale LANGUAGE=&quot;en_US.UTF-8&quot;
 </code></pre>]]></content>
         <author>
-            <name>Hairmare</name>
-            <uri>https://github.com/hairmare</uri>
+            <name>Paddatrapper</name>
+            <uri>https://github.com/paddatrapper</uri>
         </author>
     </entry>
 </feed>
