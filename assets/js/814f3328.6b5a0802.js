@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklibretime_docs=self.webpackChunklibretime_docs||[]).push([[2535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Libretime 3.0 Alpha 10 Released","permalink":"/libretime/blog/3.0-alpha-10-released"}]}')}}]);

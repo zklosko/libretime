@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklibretime_docs=self.webpackChunklibretime_docs||[]).push([[9946],{9030:function(e){e.exports=JSON.parse('{"allTagsPath":"/libretime/blog/tags","slug":"/libretime/blog/tags/release-notes","name":"release notes","count":1,"permalink":"/libretime/blog/tags/release-notes"}')}}]);
