@@ -13,9 +13,14 @@ Get started by installing LibreTime on your server. Open up your terminal and en
 ```bash
 git clone https://github.com/LibreTime/libretime.git
 cd libretime
-
 sudo ./install -fiap
 ```
+
+:::tip
+
+Don't want to install from source? Our [Installation guide](/docs/getting-started/install) has more instructions.
+
+:::
 
 After the installer is done, head to your server's IP address in a web browser and complete the setup wizard.
 

@@ -2,6 +2,10 @@
 title: Installation
 sidebar_position: 1
 ---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+import { globals } from '../globals.js'
 
 ## Minimum system requirements
 
@@ -70,20 +74,38 @@ sudo ufw allow 8001,8002/tcp
 
 ## Installing LibreTime
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Djo_55LgjXE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+There are two ways to install Libretime: from a release or from source. We recommend you install from source since Libretime is under active development.
 
-Installing LibreTime consists of running the following commands in the terminal:
+Open a terminal on your server and enter the following commands:
 
-```bash
-git clone https://github.com/LibreTime/libretime.git
+<Tabs>
+  <TabItem value="release" label="Release">
+    <CodeBlock language="bash">
+      wget https://github.com/LibreTime/libretime/releases/download/{globals.version}/libretime-{globals.version}.tar.gz
+      <br />
+      tar -xzf libretime-{globals.version}.tar.gz
+      <br />
+      cd libretime-{globals.version}
+      <br />
+      sudo bash install -fiap
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="Source" default>
+    <CodeBlock language="bash">
+      {`git clone https://github.com/LibreTime/libretime.git
 cd libretime
-
-sudo bash install -fiap
-```
+sudo bash install -fiap`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
 After the install is completed, head to the IP address of the server LibreTime was just installed on
 to complete the welcome wizard. While not strictly necessary, it is recommended that you change the passwords prompted in the welcome wizard if you intend on accessing the server from the Internet. The welcome wizard will
 walk you through the rest of the installation process.
+
+### Video Guide
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Djo_55LgjXE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Services
 
