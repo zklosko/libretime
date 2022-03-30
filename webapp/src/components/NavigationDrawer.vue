@@ -1,16 +1,9 @@
 <template>
   <v-navigation-drawer app permanent width="200">
     <v-container>
-      <v-img
-        class="align-sm-center child-flex"
-        src="../../assets/logo.png"
-        max-height="100"
-        max-width="100"
-        contain
-      />
+      <v-img class="mb-4" src="/logo.png" height="70" contain />
     </v-container>
     <v-btn color="secondary" block> Upload </v-btn>
-    <p class="text-overline">Dashboard</p>
     <v-list dense nav>
       <v-list-item
         v-for="dashnav in dashnavitems"

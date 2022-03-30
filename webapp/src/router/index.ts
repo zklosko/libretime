@@ -120,6 +120,11 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/setup",
+      name: "setup",
+      component: () => import("@/views/SetupWizard.vue"),
+    },
   ],
 });
 
