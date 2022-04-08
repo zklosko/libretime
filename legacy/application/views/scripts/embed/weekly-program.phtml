@@ -10,13 +10,15 @@
 <body>
 <div id="wpBody" class="schedule tab_content current">
     <ul class="tabs">
-        <li v-for="day in cleanSchedule">
-            {{day.dayOfWeek}}<span>{{day.dayOfMonth}}</span>
+        <li v-for="{ day, index } in cleanSchedule" :class="{ 'active': index === currentTab.value }">
+            <div @click="currentTab = index">
+                {{day.dayOfWeek}}<span>{{day.dayOfMonth}}</span>
+            </div>
         </li>
     </ul>
 
     <div class="schedule_content">
-        <div v-for="day in cleanSchedule" id="day-{{dayOfMonth}}" class="schedule_item">
+        <div v-for="{ day, index } in cleanSchedule" id="day-{{dayOfMonth}}" :class="[ 'active': index === currentTab.value, schedule_item ]">
             <div v-if="day.shows.length == 0" class="row empty-schedule">
                 <?php echo _('Looks like there are no shows scheduled on this day.') ?>
             </div>
@@ -33,61 +35,24 @@
 </div>
 
 <script type="text/javascript">
-    let importSchedule = <?php echo $this->schedule_data; ?>;  // Object prepared in JSON, w/o API call
-    let cleanSchedule = [];
-
-    // Insert shows into correct locations in importShows array (work-around for API v.1)
-    let importShows = importSchedule["shows"];
-    importShows.forEach(element => {
-        // Convert timestamps to JS (sec -> millisec)
-        var start_date = new Date(element.starts_timestamp*1000);
-        var end_date = new Date(element.ends_timestamp*1000);
-        // Check date of show so we know where to assign it to
-        var format_start_date = start_date.getFullYear() + "-" + (start_date.getMonth()+1) + "-" + start_date.getDate();
-        // Assign show to correct location
-        if (importSchedule["weekDays"][format_start_date] !== undefined) {
-            importSchedule["weekDays"][format_start_date]["shows"].push(
-                {
-                    "show_start_hour": start_date.toLocaleTimeString([], { hour: 'numeric', minute : 'numeric' }),
-                    "show_end_hour": end_date.toLocaleTimeString([], { hour: 'numeric', minute : 'numeric' }),
-                    "name": element.name
-                });
-        }
-    });
-
-    // Re-arraying data into a Handlebars-friendly format
-    for (var i = 0; i <= 6; i++) {
-        cleanSchedule.push(Object.values(importSchedule.weekDays)[i]);
-    }
-
-    // Checker
-    Handlebars.registerHelper('noShowsCheck', function(obj){
-        return obj.length == 0;
-    });
-
-    // Templating with Handlebars.js
-    var wpWidget = document.querySelector('#wpWidget').innerHTML;
-    var wpTemplate = Handlebars.compile(wpWidget);
-    var compiledHTML = wpTemplate(cleanSchedule);
-    document.querySelector('#wpBody').innerHTML = compiledHTML;
 
     // Tabs logic
-    $(document).ready(function() {
-        //initialize first day to active
-        $('.tabs').find("li").first().addClass("active");
-        $('.schedule_content').find('.schedule_item').first().addClass("active");
+    // $(document).ready(function() {
+    //     //initialize first day to active
+    //     $('.tabs').find("li").first().addClass("active");
+    //     $('.schedule_content').find('.schedule_item').first().addClass("active");
 
-        $('.tabs li').click(function(){
-            //var tab_id = $(this).attr('data-tab');
-            var tab_id = "day-"+$(this).find('span').text();
+    //     $('.tabs li').click(function(){
+    //         //var tab_id = $(this).attr('data-tab');
+    //         var tab_id = "day-"+$(this).find('span').text();
 
-            $('.tabs li').removeClass('active');
-            $('.schedule_item').removeClass('active');
+    //         $('.tabs li').removeClass('active');
+    //         $('.schedule_item').removeClass('active');
 
-            $(this).addClass('active');
-            $("#"+tab_id).addClass('active');
-        });
-    });
+    //         $(this).addClass('active');
+    //         $("#"+tab_id).addClass('active');
+    //     });
+    // });
 
     Vue.createApp({
         setup(){
@@ -118,7 +83,12 @@
                 cleanSchedule.push(Object.values(importSchedule.weekDays)[i]);
             }
 
-            return cleanSchedule;
+            const currentTab = ref(0)
+
+            return {
+                cleanSchedule,
+                currentTab,
+            };
         }
     }).mount('#wpBody')
 
