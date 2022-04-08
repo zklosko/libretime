@@ -10,14 +10,14 @@
 <body>
 <div id="wpBody" class="schedule tab_content current">
     <ul class="tabs">
-        <li v-for="day in days">
+        <li v-for="day in cleanSchedule">
             {{day.dayOfWeek}}<span>{{day.dayOfMonth}}</span>
         </li>
     </ul>
 
     <div class="schedule_content">
-        <div v-for="day in days" id="day-{{dayOfMonth}}" class="schedule_item">
-            <div v-if="day.length == 0" class="row empty-schedule">
+        <div v-for="day in cleanSchedule" id="day-{{dayOfMonth}}" class="schedule_item">
+            <div v-if="day.shows.length == 0" class="row empty-schedule">
                 <?php echo _('Looks like there are no shows scheduled on this day.') ?>
             </div>
             <div v-else v-for="show in day" class="row">
@@ -91,7 +91,34 @@
 
     Vue.createApp({
         setup(){
-            console.log('Hi!')
+            // Pull in scheduling data
+            const importSchedule = <?php echo $this->schedule_data; ?>;  // Object prepared in JSON, w/o API call
+            const cleanSchedule = []
+
+            // Insert shows into correct locations in importShows array (work-around for API v.1)
+            let importShows = importSchedule["shows"];
+            importShows.forEach(element => {
+                // Convert timestamps to JS (sec -> millisec)
+                var start_date = new Date(element.starts_timestamp*1000);
+                var end_date = new Date(element.ends_timestamp*1000);
+                // Check date of show so we know where to assign it to
+                var format_start_date = start_date.getFullYear() + "-" + (start_date.getMonth()+1) + "-" + start_date.getDate();
+                // Assign show to correct location
+                if (importSchedule["weekDays"][format_start_date] !== undefined) {
+                    importSchedule["weekDays"][format_start_date]["shows"].push(
+                        {
+                            "show_start_hour": start_date.toLocaleTimeString([], { hour: 'numeric', minute : 'numeric' }),
+                            "show_end_hour": end_date.toLocaleTimeString([], { hour: 'numeric', minute : 'numeric' }),
+                            "name": element.name
+                        });
+                }
+            });
+
+            for (var i = 0; i <= 6; i++) {
+                cleanSchedule.push(Object.values(importSchedule.weekDays)[i]);
+            }
+
+            return cleanSchedule;
         }
     }).mount('#wpBody')
 
