@@ -4,10 +4,16 @@
 <head>
     <link rel="stylesheet" href="<?php echo $this->css?>" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-    <script src="/js/libs/vue.min.js"></script>
 </head>
 
 <body>
+<script type="importmap">
+{
+    "imports": {
+            "vue": /js/libs/vue/min.js"
+    }
+}
+</script>
 <div id="wpBody" class="schedule tab_content current">
     <ul class="tabs">
         <li v-for="{ day, index } in cleanSchedule" :class="{ 'active': index === currentTab.value }">
@@ -34,7 +40,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<script type="module">
 
     // Tabs logic
     // $(document).ready(function() {
@@ -53,9 +59,10 @@
     //         $("#"+tab_id).addClass('active');
     //     });
     // });
+    import { createApp } from 'vue'
 
-    Vue.createApp({
-        setup(){
+    createApp({
+        setup() {
             // Pull in scheduling data
             const importSchedule = <?php echo $this->schedule_data; ?>;  // Object prepared in JSON, w/o API call
             const cleanSchedule = []
@@ -75,7 +82,8 @@
                             "show_start_hour": start_date.toLocaleTimeString([], { hour: 'numeric', minute : 'numeric' }),
                             "show_end_hour": end_date.toLocaleTimeString([], { hour: 'numeric', minute : 'numeric' }),
                             "name": element.name
-                        });
+                        }
+                    );
                 }
             });
 
@@ -90,8 +98,7 @@
                 currentTab,
             };
         }
-    }).mount('#wpBody')
-
+    }).mount('#wpBody');
 </script>
 </body>
 </html>
