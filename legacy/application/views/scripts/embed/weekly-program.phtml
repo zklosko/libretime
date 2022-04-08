@@ -3,43 +3,33 @@
 
 <head>
     <link rel="stylesheet" href="<?php echo $this->css?>" type="text/css">
-    <script src="<?php echo $this->jquery ?>" type="text/javascript"></script>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-    <script src="/js/libs/handlebars.min.js"></script>
+    <script src="/js/libs/vue.min.js"></script>
 </head>
 
 <body>
 <div id="wpBody" class="schedule tab_content current">
-    <script id="wpWidget" type="text/x-handlebars-template">
-        <ul class="tabs">
-            {{#each this}}
-            <li>
-                {{dayOfWeek}}<span>{{dayOfMonth}}</span>
-            </li>
-            {{/each}}
-        </ul>
+    <ul class="tabs">
+        <li v-for="day in days">
+            {{day.dayOfWeek}}<span>{{day.dayOfMonth}}</span>
+        </li>
+    </ul>
 
-        <div class="schedule_content">
-            {{#each this}}
-            <div id="day-{{dayOfMonth}}" class="schedule_item">
-                {{#if (noShowsCheck this.shows)}}
-                <div class="row empty-schedule"><?php echo _('Looks like there are no shows scheduled on this day.') ?></div>
-                {{else}}
-                {{#each shows}}
-                <div class="row">
-                    <div class="time_grid">{{show_start_hour}} - {{show_end_hour}}</div>
-                    <div class="name_grid">{{{name}}}</div>
-                </div>
-                {{/each}}
-                {{/if}}
+    <div class="schedule_content">
+        <div v-for="day in days" id="day-{{dayOfMonth}}" class="schedule_item">
+            <div v-if="day.length == 0" class="row empty-schedule">
+                <?php echo _('Looks like there are no shows scheduled on this day.') ?>
             </div>
-            {{/each}}
+            <div v-else v-for="show in day" class="row">
+                <div class="time_grid">{{show.show_start_hour}} - {{show.show_end_hour}}</div>
+                <div class="name_grid">{{{show.name}}}</div>
+            </div>
         </div>
+    </div>
 
-        <div class="weekly-schedule-widget-footer" <?php if ($this->widgetStyle == "premium") echo "style='display:none'"; ?>>
-            <a href="<?php echo PRODUCT_SITE_URL; ?>" target="_blank"><?php printf(_('Powered by %s'), PRODUCT_NAME); ?></a>
-        </div>
-    </script>
+    <div class="weekly-schedule-widget-footer" <?php if ($this->widgetStyle == "premium") echo "style='display:none'"; ?>>
+        <a href="<?php echo PRODUCT_SITE_URL; ?>" target="_blank"><?php printf(_('Powered by %s'), PRODUCT_NAME); ?></a>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -98,6 +88,12 @@
             $("#"+tab_id).addClass('active');
         });
     });
+
+    Vue.createApp({
+        setup(){
+            console.log('Hi!')
+        }
+    }).mount('#wpBody')
 
 </script>
 </body>
