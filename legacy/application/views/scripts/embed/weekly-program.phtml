@@ -16,21 +16,21 @@
 </script>
 <div id="wpBody" class="schedule tab_content current">
     <ul class="tabs">
-        <li v-for="{ day, index } in cleanSchedule" :class="{ 'active': index === currentTab.value }">
-            <div @click="currentTab = index">
+        <li v-for="day in showsList" :class="{ 'active': selectedDay.value === day.dayOfWeek }">
+            <div @click="selectedDay.value = day.dayOfWeek">
                 {{day.dayOfWeek}}<span>{{day.dayOfMonth}}</span>
             </div>
         </li>
     </ul>
 
     <div class="schedule_content">
-        <div v-for="{ day, index } in cleanSchedule" id="day-{{dayOfMonth}}" :class="[ 'active': index === currentTab.value, schedule_item ]">
-            <div v-if="day.shows.length == 0" class="row empty-schedule">
+        <div v-for="shows in showsList" class="schedule_item">
+            <div v-if="shows.length == 0" class="row empty-schedule">
                 <?php echo _('Looks like there are no shows scheduled on this day.') ?>
             </div>
-            <div v-else v-for="show in day" class="row">
-                <div class="time_grid">{{show.show_start_hour}} - {{show.show_end_hour}}</div>
-                <div class="name_grid">{{{show.name}}}</div>
+            <div v-else v-for="s in filterShows(shows, selectedDay.value)" class="row">
+                <div class="time_grid">{{s.show_start_hour}} - {{s.show_end_hour}}</div>
+                <div class="name_grid">{{{s.name}}}</div>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
         setup() {
             // Pull in scheduling data
             const importSchedule = <?php echo $this->schedule_data; ?>;  // Object prepared in JSON, w/o API call
-            const cleanSchedule = []
+            const showsList = []
 
             // Insert shows into correct locations in importShows array (work-around for API v.1)
             let importShows = importSchedule["shows"];
@@ -70,14 +70,19 @@
             });
 
             for (var i = 0; i <= 6; i++) {
-                cleanSchedule.push(Object.values(importSchedule.weekDays)[i]);
+                showsList.push(Object.values(importSchedule.weekDays)[i]);
+            }
+            
+            // Determines if show occurs on selected day for filtering, returns bool
+            function filterShows(show, selectedDay) {
+                return show.filter((show) => show.dayOfMonth === selectedDay)
             }
 
-            const currentTab = ref(0)
+            const selectedDay = ref(0)
 
             return {
-                cleanSchedule,
-                currentTab,
+                showsList,
+                selectedDay,
             };
         }
     }).mount('#wpBody');
