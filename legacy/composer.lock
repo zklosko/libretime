@@ -1290,7 +1290,7 @@
         },
         {
             "name": "zf1s/zend-exception",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf1s/zend-exception.git",
@@ -1332,7 +1332,7 @@
                 "zend"
             ],
             "support": {
-                "source": "https://github.com/zf1s/zend-exception/tree/1.14.0"
+                "source": "https://github.com/zf1s/zend-exception/tree/1.15.0"
             },
             "time": "2021-10-01T14:41:55+00:00"
         },
@@ -2150,22 +2150,22 @@
         },
         {
             "name": "zf1s/zend-session",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf1s/zend-session.git",
-                "reference": "6580432cd62f949574c829715e8585d5215a683d"
+                "reference": "52e3a98c4f13fc11c7005440d597e941634b006c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf1s/zend-session/zipball/6580432cd62f949574c829715e8585d5215a683d",
-                "reference": "6580432cd62f949574c829715e8585d5215a683d",
+                "url": "https://api.github.com/repos/zf1s/zend-session/zipball/52e3a98c4f13fc11c7005440d597e941634b006c",
+                "reference": "52e3a98c4f13fc11c7005440d597e941634b006c",
                 "shasum": ""
             },
             "require": {
                 "ext-session": "*",
                 "php": ">=5.3.3",
-                "zf1s/zend-exception": "^1.14.0"
+                "zf1s/zend-exception": "^1.15.0"
             },
             "replace": {
                 "zf1/zend-session": "^1.12"
@@ -2199,9 +2199,9 @@
                 "zend"
             ],
             "support": {
-                "source": "https://github.com/zf1s/zend-session/tree/1.14.0"
+                "source": "https://github.com/zf1s/zend-session/tree/1.15.0"
             },
-            "time": "2021-10-01T14:41:55+00:00"
+            "time": "2022-10-04T14:16:25+00:00"
         },
         {
             "name": "zf1s/zend-uri",
@@ -4209,5 +4209,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
