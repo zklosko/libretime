@@ -1290,7 +1290,7 @@
         },
         {
             "name": "zf1s/zend-exception",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf1s/zend-exception.git",
@@ -1332,7 +1332,7 @@
                 "zend"
             ],
             "support": {
-                "source": "https://github.com/zf1s/zend-exception/tree/1.14.0"
+                "source": "https://github.com/zf1s/zend-exception/tree/1.15.0"
             },
             "time": "2021-10-01T14:41:55+00:00"
         },
@@ -1831,22 +1831,22 @@
         },
         {
             "name": "zf1s/zend-log",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf1s/zend-log.git",
-                "reference": "fb9051c62d62af74b0c6f76b57d3319021827b59"
+                "reference": "c193ae3afd0846db74b955754153cbe816d9c9a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf1s/zend-log/zipball/fb9051c62d62af74b0c6f76b57d3319021827b59",
-                "reference": "fb9051c62d62af74b0c6f76b57d3319021827b59",
+                "url": "https://api.github.com/repos/zf1s/zend-log/zipball/c193ae3afd0846db74b955754153cbe816d9c9a1",
+                "reference": "c193ae3afd0846db74b955754153cbe816d9c9a1",
                 "shasum": ""
             },
             "require": {
                 "ext-reflection": "*",
                 "php": ">=5.3.3",
-                "zf1s/zend-exception": "^1.14.0"
+                "zf1s/zend-exception": "^1.15.0"
             },
             "replace": {
                 "zf1/zend-log": "^1.12"
@@ -1879,9 +1879,9 @@
                 "zend"
             ],
             "support": {
-                "source": "https://github.com/zf1s/zend-log/tree/1.14.0"
+                "source": "https://github.com/zf1s/zend-log/tree/1.15.0"
             },
-            "time": "2021-10-01T14:41:55+00:00"
+            "time": "2022-10-04T14:16:25+00:00"
         },
         {
             "name": "zf1s/zend-navigation",
@@ -4209,5 +4209,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
